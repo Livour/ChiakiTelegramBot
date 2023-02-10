@@ -1,5 +1,5 @@
 # ChiakiTelegramBot
-ChiakiNanamiBot for Telegram
+Personal Telegram bot for QOL Services
 
 Planned future functions:
 MAL Manager
