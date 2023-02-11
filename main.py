@@ -1,15 +1,16 @@
 from os import getenv
 from dotenv import load_dotenv
-import telebot
+from telebot import TeleBot
+from telebot.types import Message
 
 load_dotenv()
 BOT_TOKEN = getenv('BOT_TOKEN')
 
-bot = telebot.TeleBot(BOT_TOKEN, parse_mode="MarkdownV2")
+bot = TeleBot(BOT_TOKEN, parse_mode="MarkdownV2")
 
 
 @bot.message_handler(commands=['start', 'hello', "help"])
-def send_welcome(message: telebot.types.Message):
+def send_welcome(message: Message):
     bot.send_message(message.chat.id, "*Hola I'm Chiaki*\n"
                                       "I am a quality of life assistant\n\n"
                                       "I can quickly manage your URLS and help you use MAL more efficiently\n\n"
