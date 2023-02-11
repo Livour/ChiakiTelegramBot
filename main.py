@@ -1,16 +1,23 @@
-# This is a sample Python script.
+from os import getenv
+from dotenv import load_dotenv
+import telebot
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+load_dotenv()
+BOT_TOKEN = getenv('BOT_TOKEN')
+
+bot = telebot.TeleBot(BOT_TOKEN, parse_mode="MarkdownV2")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+@bot.message_handler(commands=['start', 'hello', "help"])
+def send_welcome(message: telebot.types.Message):
+    bot.send_message(message.chat.id, "*Hola I'm Chiaki*\n"
+                                      "I am a quality of life assistant\n\n"
+                                      "I can quickly manage your URLS and help you use MAL more efficiently\n\n"
+                                      "maybe I will have more features on the future 🤷‍♂")
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+print('----------------------\n'
+      'Chiaki is now running\n'
+      '----------------------')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+bot.polling()
