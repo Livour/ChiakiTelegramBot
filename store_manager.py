@@ -3,18 +3,20 @@ from os.path import exists as does_path_exists
 from telebot import TeleBot
 from telebot.types import Message
 
-STORAGE_FILE = "url.json"
+# This is a module for managing the Key-Value store of the bot
+# Included all CRUD functions
+STORAGE_FILE = "store.json"
 
 
-def initialize_url_commands(bot: TeleBot):
+def initialize_commands_from_store(bot: TeleBot):
     # If the file doesn't exist, create an empty file
     if not does_path_exists(STORAGE_FILE):
         with open(STORAGE_FILE, "w"):
             pass
         return
 
-    with open(STORAGE_FILE, "r") as urls:
-        data = json_load(urls)
+    with open(STORAGE_FILE, "r") as items:
+        data = json_load(items)
 
     for key, value in data.items():
         def handler(closure_value=value):
