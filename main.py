@@ -25,7 +25,8 @@ def main():
     initialize_commands_from_store(bot)
 
     try:
-        bot.polling()
+        # TODO add logger
+        bot.infinity_polling()
         print('----------------------\n'
               'Chiaki is now running\n'
               '----------------------')
