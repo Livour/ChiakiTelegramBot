@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from telebot import TeleBot
 from telebot.types import Message
 
-from store_manager import initialize_commands_from_store
+from store_manager import initialize_all_store_commands
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
                                           "efficiently\n\n "
                                           "maybe I will have more features on the future 🤷‍♂", parse_mode="MarkdownV2")
 
-    initialize_commands_from_store(bot)
+    initialize_all_store_commands(bot)
 
     try:
         # TODO add logger

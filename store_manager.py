@@ -8,7 +8,11 @@ from telebot.types import Message
 STORAGE_FILE = "store.json"
 
 
-def initialize_commands_from_store(bot: TeleBot):
+def initialize_all_store_commands(bot: TeleBot):
+    initialize_commands_from_storage(bot)
+
+
+def initialize_commands_from_storage(bot: TeleBot):
     # If the file doesn't exist, create an empty file
     if not does_path_exists(STORAGE_FILE):
         with open(STORAGE_FILE, "w"):
