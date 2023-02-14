@@ -9,6 +9,8 @@ from store_manager import initialize_commands_from_store
 def main():
     load_dotenv()
     bot_token = getenv('bot_token')
+    if not bot_token:
+        bot_token = input("Enter your bot token:\n")
 
     bot = TeleBot(bot_token)
 
@@ -22,11 +24,13 @@ def main():
 
     initialize_commands_from_store(bot)
 
-    print('----------------------\n'
-          'Chiaki is now running\n'
-          '----------------------')
-
-    bot.polling()
+    try:
+        bot.polling()
+        print('----------------------\n'
+              'Chiaki is now running\n'
+              '----------------------')
+    except Exception as error:
+        print(error)
 
 
 if __name__ == "__main__":
