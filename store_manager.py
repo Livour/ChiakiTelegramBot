@@ -21,7 +21,7 @@ def initialize_all_store_commands(bot: TeleBot):
         bot.register_next_step_handler(message, new_item_name)
 
     def new_item_name(message: Message):
-        if is_duplicate(message.text):
+        if is_stored(message.text):
             return bot.send_message(message.chat.id, "Oops, An item with the same name already exists")
 
         bot.send_message(message.chat.id, "Finally, give me the value you want to assign to that item")
@@ -34,6 +34,8 @@ def initialize_all_store_commands(bot: TeleBot):
             lambda new_item_message: bot.send_message(new_item_message.chat.id, message.text))
 
         bot.send_message(message.chat.id, "The item has been added")
+
+
 
 
 def initialize_commands_from_storage(bot: TeleBot):
@@ -55,7 +57,7 @@ def initialize_commands_from_storage(bot: TeleBot):
         bot.message_handler(commands=[key])(handler())
 
 
-def is_duplicate(text):
+def is_stored(text):
     data = get_all_storage()
     return text in data.keys()
 
