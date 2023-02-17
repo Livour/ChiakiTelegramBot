@@ -1,16 +1,38 @@
-# This is a sample Python script.
+from os import getenv
+from dotenv import load_dotenv
+from telebot import TeleBot
+from telebot.types import Message
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from store_manager import initialize_all_store_commands
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def main():
+    load_dotenv()
+    bot_token = getenv('bot_token')
+    if not bot_token:
+        bot_token = input("Enter your bot token:\n")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    bot = TeleBot(bot_token)
+
+    @bot.message_handler(commands=['start', 'hello', "help"])
+    def send_help_details(message: Message):
+        bot.send_message(message.chat.id, "*Hola I'm Chiaki*\n"
+                                          "I am a quality of life assistant\n\n"
+                                          "I can quickly manage your saved data and help you use MAL more "
+                                          "efficiently\n\n "
+                                          "maybe I will have more features on the future 🤷‍♂", parse_mode="MarkdownV2")
+
+    initialize_all_store_commands(bot)
+
+    try:
+        # TODO add logger
+        bot.infinity_polling()
+        print('----------------------\n'
+              'Chiaki is now running\n'
+              '----------------------')
+    except Exception as error:
+        print(error)
+
+
+if __name__ == "__main__":
+    main()
