@@ -15,7 +15,7 @@ STORAGE_FILE = "store.json"
 def initialize_all_store_commands(bot: TeleBot):
     initialize_commands_from_storage(bot)
 
-    @bot.message_handler(commands=["add-item"])
+    @bot.message_handler(commands=["add_item"])
     def add_new_item(message: Message):
         bot.send_message(message.chat.id, "Great, what item do you want to add?")
         bot.register_next_step_handler(message, new_item_name)
