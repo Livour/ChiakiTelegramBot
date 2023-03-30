@@ -1,6 +1,11 @@
 import secrets
 import requests
+import webbrowser
 from os import getenv
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_new_pkce_verifier() -> str:
@@ -24,10 +29,14 @@ def mal_api_authorization():
     client_id = getenv("mal_client_id")
     state = getenv("mal_state")
     try:
-        response = requests.get(url,
-                                params={"response_type": "code", "client_id": client_id, "state": state,
-                                        "code_challenge": get_new_pkce_verifier()})
+        response = webbrowser.open(requests.get(url,
+                                                params={"response_type": "code", "client_id": client_id,
+                                                        "code_challenge": get_new_pkce_verifier(), "state": state}).url,
+                                   new=2)
         response.raise_for_status()
     except requests.exceptions.HTTPError as err:
         print(err[0])
     return response
+
+# TODO: check what i should do: Verify client through selenium/ send him a link. the selenuim part. If you want the celenium path then do i want the user to to add his credentials in .env or send them to the bot?
+# also check if its this process in nessesary
