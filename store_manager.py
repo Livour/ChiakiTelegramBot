@@ -1,6 +1,5 @@
 import json
-from json import load as json_load
-from os.path import exists as does_path_exists
+import os
 from telebot import TeleBot
 from telebot.types import Message
 from bot_utils import remove_handler
@@ -53,7 +52,7 @@ def initialize_all_store_commands(bot: TeleBot):
 
 def initialize_commands_from_storage(bot: TeleBot):
     # If the file doesn't exist, create an empty file
-    if not does_path_exists(STORAGE_FILE):
+    if not os.path.exists(STORAGE_FILE):
         with open(STORAGE_FILE, "w"):
             pass
         return
@@ -77,7 +76,7 @@ def is_stored(text):
 
 def get_all_storage() -> dict:
     with open(STORAGE_FILE, "r") as items:
-        return json_load(items)
+        return json.load(items)
 
 
 def dump_to_storage(data):
